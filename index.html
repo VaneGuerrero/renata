@@ -68,7 +68,9 @@
   <div class="steps" id="done" hidden>
     <button id="retry" class="step sec"><span class="n">1</span>Repetir si no te gustó</button>
     <div class="arrow" aria-hidden="true">▼</div>
-    <button id="go" class="step pts"><span class="n">2</span>Descarga y sube tu foto para ganar 100 puntos</button>
+    <button id="download" class="step"><span class="n">2</span>Descargar foto</button>
+    <div class="arrow" aria-hidden="true">▼</div>
+    <a id="points" class="step pts" href="https://app.supertize.com/content/761990" target="_blank" rel="noopener"><span class="n">3</span>Sube tu foto y gana 100 puntos</a>
   </div>
 
 <script>
@@ -144,7 +146,7 @@ function download() {
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob); a.download = filename();
   document.body.appendChild(a); a.click(); a.remove();
-  msg.textContent = "¡Foto descargada! Súbela en el enlace para ganar tus puntos.";
+  msg.textContent = "¡Foto descargada! Si no la ves, mantén presionada la imagen y elige «Guardar imagen». Después, súbela para ganar tus puntos.";
 }
 
 function retry() {
@@ -156,12 +158,7 @@ function retry() {
 $("start").onclick = startCam;
 $("shoot").onclick = shoot;
 $("flip").onclick = () => { facing = facing === "user" ? "environment" : "user"; startCam(); };
-const POINTS_URL = "https://app.supertize.com/content/761990";
-$("go").onclick = () => {
-  download();                                   // 1) guarda la foto
-  const w = window.open(POINTS_URL, "_blank", "noopener");   // 2) abre el enlace de puntos
-  if (!w) location.href = POINTS_URL;           // si el navegador bloquea la ventana, navega en la misma pestaña
-};
+$("download").onclick = download;
 $("retry").onclick = retry;
 
 /* ---------- Papelillos de celebración ---------- */
